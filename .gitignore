@@ -14,3 +14,6 @@ wheels/
 
 # rbi data
 data/
+
+# vector database 
+.chroma

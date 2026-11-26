@@ -13,4 +13,6 @@ def check_question_scope(state: AgentState) -> dict[str, Any]:
         "is_rbi_related": False,
         "generation": scope.out_of_scope_response.strip(),
         "sources": [],
+        "web_search": False,
+        "documents": [],
     }

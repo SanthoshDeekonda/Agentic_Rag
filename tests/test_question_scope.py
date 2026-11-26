@@ -30,9 +30,14 @@ def test_unrelated_question_ends_before_retrieval(question, model_reply):
 
     classifier.invoke.assert_called_once_with({"question": question})
     retriever.assert_not_called()
-    assert result["is_rbi_related"] is False
-    assert result["generation"] == model_reply
-    assert result["sources"] == []
+    assert result == {
+        "question": question,
+        "is_rbi_related": False,
+        "generation": model_reply,
+        "sources": [],
+        "web_search": False,
+        "documents": [],
+    }
 
 
 @pytest.mark.parametrize("score", ["yes", "no"])
@@ -79,6 +84,11 @@ def test_rbi_question_reaches_generation_with_source(score):
         input={"question": question, "context": f"Source: {source}\n{excerpt}"}
     )
     assert search.called == (score == "no")
-    assert result["is_rbi_related"] is True
-    assert result["generation"] == "Sourced answer"
-    assert result["sources"] == [source]
+    assert result == {
+        "question": question,
+        "is_rbi_related": True,
+        "generation": "Sourced answer",
+        "sources": [source],
+        "web_search": score == "no",
+        "documents": [Document(page_content=excerpt, metadata={"source": source})],
+    }

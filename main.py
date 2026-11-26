@@ -1,5 +1,3 @@
-import json
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,13 +5,6 @@ load_dotenv()
 from AgenticWorkflow.graph import app
 
 if __name__ == "__main__":
-    result = app.invoke(
-        input={"question": "Write a python program"}
-    )
-    print(
-        json.dumps(
-            {"response": result["generation"], "sources": result["sources"]},
-            ensure_ascii=False,
-            indent=2,
-        )
-    )
+    result = app.invoke(input={"question": "What is policies recently introduced by the rbi"})
+    for key, value in result.items():
+        print(key, value)

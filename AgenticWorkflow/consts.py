@@ -1,0 +1,5 @@
+CHECK_QUESTION_SCOPE = "check_question_scope"
+RETRIEVE = "retrieve_node"
+GRADE_DOCUMENTS = "grade_documents"
+GENERATE = "generate"
+WEBSEARCH = "websearch"

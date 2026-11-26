@@ -1,0 +1,62 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RBI Desk</title>
+  <link rel="stylesheet" href="{% static 'agent_service/chat.css' %}">
+  <script src="{% static 'agent_service/chat.js' %}" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <a class="wordmark" href="{% url 'agent_service:chat' %}">
+        <span class="brand-mark" aria-hidden="true"></span> RBI Desk
+      </a>
+      <span class="local-label">Local workspace</span>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="welcome" id="welcome" aria-labelledby="welcome-heading">
+      <span class="brand-mark hero-mark" aria-hidden="true"></span>
+      <h1 id="welcome-heading">Ask about the RBI</h1>
+      <p>Explore Reserve Bank of India circulars, directions and rules. Follow the source links to read the publications yourself.</p>
+      <div class="suggestions" aria-label="Example questions">
+        <button type="button" data-question="What are the RBI rules for a Basic Savings Bank Deposit Account?">Basic savings accounts</button>
+        <button type="button" data-question="What are the RBI rules for sending money abroad under the Liberalised Remittance Scheme?">Sending money abroad</button>
+        <button type="button" data-question="How do I file a complaint under the RBI Integrated Ombudsman Scheme?">Filing a bank complaint</button>
+      </div>
+    </section>
+
+    <section class="exchange" id="exchange" aria-label="Current exchange" hidden>
+      <div class="question-row"><p id="current-question" class="question-bubble"></p></div>
+      <article class="reply" aria-labelledby="reply-heading">
+        <h2 id="reply-heading"><span class="brand-mark" aria-hidden="true"></span> RBI Desk</h2>
+        <p id="pending" class="pending" role="status" hidden>
+          <span class="spinner" aria-hidden="true"></span><span id="pending-message"></span>
+        </p>
+        <div id="answer" class="answer" aria-live="polite"></div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <div id="sources" class="sources" hidden>
+          <h3>Sources</h3>
+          <ul id="source-list"></ul>
+        </div>
+      </article>
+    </section>
+
+    <div class="composer">
+      <form id="question-form" method="post" action="{% url 'agent_service:ask' %}">
+        {% csrf_token %}
+        <label for="question">Your question</label>
+        <div class="input-row">
+          <textarea id="question" name="question" rows="2" maxlength="{{ question_limit }}" placeholder="Ask about RBI rules or guidance…" required></textarea>
+          <button id="send" type="submit">Send</button>
+        </div>
+      </form>
+      <noscript><p>Enable JavaScript to use the chat.</p></noscript>
+    </div>
+  </main>
+</body>
+</html>

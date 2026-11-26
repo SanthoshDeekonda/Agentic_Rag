@@ -1,5 +1,20 @@
 # RBI regulatory corpus
 
+## Run the local chat
+
+Start Ollama with `qwen3:8b` and `qwen3-embedding:4b` installed. Set `TAVILY_API_KEY` in the project’s `.env` for web fallback. From the repository root, run the Django server:
+
+```sh
+uv sync --locked
+uv run --locked python backend/manage.py runserver 127.0.0.1:8000
+```
+
+Open [RBI Desk](http://127.0.0.1:8000/). Django calls the agent in the same process. The page displays the current exchange and source links. If `.chroma/` is missing, download the corpus and run `uv run --locked python ingestion.py` before asking a question.
+
+Run the Django chat tests with `uv run --locked python backend/manage.py test agent_service`.
+
+## Download the corpus
+
 Run the downloader from this UV project to collect English-language publications from the Reserve Bank of India. The Legal Framework collection also uses official India Code and Ministry of Finance copies for documents listed by RBI.
 
 ```sh

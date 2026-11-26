@@ -14,7 +14,7 @@ load_dotenv()
 DATA_DIR = Path(__file__).resolve().parent / "data"
 SOURCE_HEADER = "Text source URL: "
 VECTOR_COLLECTION_NAME = "RBI_VECTOR_STORE"
-DATABASE_PATH = "./.chroma"
+DATABASE_PATH = str(DATA_DIR.parent / ".chroma")
 EMBEDDING_BATCH_SIZE = 32
 
 Embeddings = OllamaEmbeddings(model="qwen3-embedding:4b")

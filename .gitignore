@@ -17,3 +17,6 @@ data/
 
 # vector database 
 .chroma
+
+# Local Django database
+/backend/db.sqlite3

@@ -45,5 +45,5 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-llm = ChatOllama(model="qwen3:8b", temperature=0)
+llm = ChatOllama(model="qwen3:8b", temperature=0, reasoning=False)
 question_scope_classifier = prompt | llm.with_structured_output(QuestionScope)
